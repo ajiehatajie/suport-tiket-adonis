@@ -8,12 +8,17 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <p>Welcome!</p>
+                    <p>Welcome {{ currentUser.username }}</p>
 
-                    {% if currentUser.is_admin %}
+                    {% if currentUser.is_admin == 1 %}
                         <p>
                             See all <a href="/admin/tickets">tickets</a>
+
                         </p>
+                    {% elif currentUser.is_admin == 2 %}
+                      <p>
+                        see all notifikasion <a href="/manajer/tickets">notifications</a>
+                      </p>
                     {% else %}
                         <p>
                             See all your <a href="/my_tickets">tickets</a> or <a href="/new_ticket">open new ticket</a>

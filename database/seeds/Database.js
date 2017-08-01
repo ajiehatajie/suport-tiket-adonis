@@ -20,16 +20,31 @@ class DatabaseSeeder {
   * run () {
     yield Database.table('categories').insert([
     	{
-    		name: 'Technical',
+    		name: 'Maintenance',
     		created_at: '2017-03-07 00:00:00',
     		updated_at: '2017-03-07 00:00:00'
     	},
     	{
-    		name: 'Sales',
+    		name: 'Request New',
     		created_at: '2017-03-07 00:00:00',
     		updated_at: '2017-03-07 00:00:00'
     	}
     ])
+
+    yield Database.table('departments').insert([
+      {
+        name: 'Technical',
+        created_at: '2017-03-07 00:00:00',
+        updated_at: '2017-03-07 00:00:00'
+      },
+      {
+        name: 'Sales',
+        created_at: '2017-03-07 00:00:00',
+        updated_at: '2017-03-07 00:00:00'
+      }
+    ])
+
+
   }
 
 }

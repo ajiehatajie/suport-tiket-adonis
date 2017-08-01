@@ -42,3 +42,9 @@ Route.group('admin', function () {
 
 
 }).prefix('admin').middleware(['auth', 'admin'])
+
+
+Route.group('manajer', function () {
+    Route.get('tickets', 'ManajerController.index');
+
+}).prefix('manajer').middleware(['auth', 'manajer'])
