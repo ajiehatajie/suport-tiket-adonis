@@ -25,8 +25,8 @@ module.exports = {
   */
   smtp: {
     pool: true,
-    port: 2525,
-    host: '',
+    port: 587,
+    host: 'smtp.gmail.com',
     secure: false,
     auth: {
       user: Env.get('MAIL_USERNAME'),

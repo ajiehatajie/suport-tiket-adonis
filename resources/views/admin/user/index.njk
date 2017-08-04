@@ -1,0 +1,81 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+      {% include 'layouts.sidebar' %}
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">List User </div>
+                <div class="panel-body">
+
+                  <a href="{{ ('/admin/user/create') }}" class="btn btn-success btn-sm" title="Add New Article">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                  </a>
+
+                    {% include 'includes.errors' %}
+
+                    {% if user.length == 0 %}
+                        <p>There are currently no tickets.</p>
+                    {% else %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                    <th style="text-align:center" colspan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for users in user %}
+                                <tr>
+                                    <td>
+                                      {{ users.username }}
+                                    </td>
+                                    <td>
+                                        {{ users.email}}
+                                    </td>
+
+                                    <td>
+                                      {% for depart in departemens %}
+                                          {% if depart.id == users.departemen_id %}
+                                              {{ depart.name }}
+                                          {% endif %}
+                                      {% endfor %}
+                                    </td>
+                                    <td>
+
+                                      {% if users.is_admin == '2' %}
+                                          <span class="label label-success">Manajer</span>
+                                      {% else %}
+                                          <span class="label label-danger">User</span>
+                                      {% endif %}
+                                    </td>
+                                    </td>
+                                    <td>
+                                        {{ form.open({ url: '/admin/close_ticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                            {{ csrfField }}
+                                            {{ form.button('Close', null, { class: 'btn btn-danger' }) }}
+                                        {{ form.close() }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                </div>
+              </div>
+          </div>
+        </div>
+</div>
+
+{% endblock %}

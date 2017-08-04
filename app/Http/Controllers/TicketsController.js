@@ -75,9 +75,9 @@ class TicketsController {
         // send mail notification
         yield Mail.send('emails.ticket_info', { user, ticket }, (message) => {
             message.to(user.email, user.username)
-            message.from('support@adonissupport.dev')
+            message.from('support@localhost.dev')
             message.subject(`[Ticket ID: ${ticket.ticket_id}] ${ticket.title}`)
-        })        
+        })
 
         yield request.with({ status: `A ticket with ID: #${ticket.ticket_id} has been opened.` }).flash()
         response.redirect('back')
@@ -116,10 +116,10 @@ class TicketsController {
         // send email
         yield Mail.send('emails.ticket_status', { ticketOwner, ticket }, (message) => {
             message.to(ticketOwner.email, ticketOwner.username)
-            message.from('support@adonissupport.dev')
+            message.from('support@localhost.dev')
             message.subject(`RE: ${ticket.title} (Ticket ID: ${ticket.ticket_id})`)
         })
-        
+
         yield request.with({ status: 'The ticket has been closed.' }).flash()
         response.redirect('back')
     }
