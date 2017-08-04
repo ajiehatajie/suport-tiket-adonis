@@ -9,7 +9,13 @@
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-ticket"> Tickets Waiting Approve</i>
+                    <i class="fa fa-ticket">
+                      {% if userlogin.departemen_id == 2 %}
+                        Tickets Waiting Approve</i>
+                      {% else %}
+                        Tickets Waiting Actions</i>
+                      {% endif %}
+
                 </div>
 
                 <div class="panel-body">
@@ -62,10 +68,17 @@
                                         <a href="/tickets/{{ ticket.ticket_id }}" class="btn btn-primary btn-xs">Comment</a>
                                     </td>
                                     <td>
+
                                         {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                             {{ csrfField }}
+                                            {% if userlogin.departemen_id == 2 %}
                                             {{ form.button('Approve', null, { class: 'btn btn-danger btn-xs' }) }}
-                                        {{ form.close() }}
+
+                                            {% else %}
+                                            {{ form.button('Close', null, { class: 'btn btn-danger btn-xs' }) }}
+
+                                            {% endif %}
+                                              {{ form.close() }}
                                     </td>
                                 </tr>
                             {% endfor %}
