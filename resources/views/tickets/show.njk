@@ -17,16 +17,92 @@
                     {% include 'includes.errors' %}
 
                     <div class="ticket-info">
-                        <p>{{ ticket.message }}</p>
-                        <p>Categry: {{ category.name }}</p>
-                        <p>
-                        {% if ticket.status == 'Open' %}
-                            Status: <span class="label label-success">{{ ticket.status }}</span>
-                        {% else %}
-                            Status: <span class="label label-danger">{{ ticket.status }}</span>
+                      <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Subject </th>
+                          <td>{{ ticket.message }}</td>
+                        </tr>
+                          {% if category_ticket != null %}
+                            {% if category_ticket.length != 0 %}
+                              <tr>
+                                <th>Category Ticket </th>
+                                <td>{{ category_ticket.name }}</td>
+                              </tr>
+                            {% endif %}
                         {% endif %}
-                        </p>
-                        <p>Created on: {{ ticket.created_at }}</p>
+
+                        <tr>
+                          <th>Status</th>
+                          <td>{% if ticket.status == 'Open' %}
+                              <span class="label label-success">{{ ticket.status }}</span>
+                          {% else %}
+                              <span class="label label-danger">{{ ticket.status }}</span>
+                          {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td>{{ ticket.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Approve By</th>
+                            <td>
+                              {% if ticket.status == 'Close' %}
+                                <span class="label label-success">{{ users.username }}</span>
+
+                              {% endif %}
+                              {% if currentUser.is_admin == 2  %}
+
+                                 {% if currentUser.departemen_id == 1 or currentUser.departemen_id == 3  or currentUser.departemen_id == 4  %} <!-- manager ruangan -->
+                                         {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                             {{ csrfField }}
+                                             {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                             {{ form.button('Update', null, { class: 'btn btn-danger' }) }}
+                                         {{ form.close() }}
+
+                                   {% elif currentUser.departemen_id == 2 %} <!-- manager ipsrs -->
+                                   {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                       {{ csrfField }}
+
+                                       {{ form.select('category', category, null, 'Select category', { class: 'form-control' }) }}
+
+                                       {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null,
+                                       'status ticket', { class: 'form-control col-md-4' }) }}
+
+                                       {{ form.button('Update Status', null, { class: 'btn btn-danger' }) }}
+                                   {{ form.close() }}
+
+                                 {% endif %}
+                              {% elif currentUser.is_admin == 3   %}
+                              {{ form.open({ url: '/superadmin/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                  {{ csrfField }}
+                                  {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                  {{ form.button('Update Wakil', null, { class: 'btn btn-danger' }) }}
+                              {{ form.close() }}
+                              {% elif currentUser.is_admin == 4   %}
+                              {{ form.open({ url: '/direktur/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                  {{ csrfField }}
+                                  {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                  {{ form.button('Update Direktur', null, { class: 'btn btn-danger' }) }}
+                              {{ form.close() }}
+
+                              {% elif currentUser.is_admin == 1  %}
+                               <li><a href="/admin">Dashboard</a></li>
+
+                              {% endif %}
+                            </td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
                     </div>
 
                     <hr>
@@ -45,7 +121,7 @@
                         </div>
                     {% endfor %}
                 </div>
-
+                  {% if ticket.status == 'Open' %}
                     <div class="comment-form">
                         {{ form.open({ url: '/comment', method: 'POST', class: 'form' }) }}
                             {{ csrfField }}
@@ -60,6 +136,7 @@
                                 {{ form.button('Submit', null, { class: 'btn btn-primary' }) }}
                             </div>
                         {{ form.close() }}
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -19,6 +19,14 @@
                       <p>
                         see all notifikasion <a href="/manajer/tickets">notifications</a>
                       </p>
+                      {% elif currentUser.is_admin == 3 %}
+                        <p>
+                          see all notifikasion <a href="/superadmin/tickets">notifications</a>
+                        </p>
+                        {% elif currentUser.is_admin == 4 %}
+                          <p>
+                            see all notifikasion <a href="/direktur/tickets">notifications</a>
+                          </p>
                     {% else %}
                         <p>
                             See all your <a href="/my_tickets">tickets</a> or <a href="/new_ticket">open new ticket</a>

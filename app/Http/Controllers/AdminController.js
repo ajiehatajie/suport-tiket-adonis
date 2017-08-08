@@ -46,7 +46,7 @@ class AdminController {
     // login the user
 
     // redirect to homepage
-    response.redirect('/')
+    response.redirect('/admin/user')
   }
 
 }

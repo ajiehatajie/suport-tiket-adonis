@@ -1,0 +1,96 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    New Items
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+          {% include 'layouts.sidebar' %}
+
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">New Items </div>
+                    <div class="panel-body">
+                      <a href="{{ ('/admin/items') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <br />
+                        <br />
+
+                        {% include 'includes.errors' %}
+
+                        {{ form.open({ url: '/admin/items', method: 'POST', class: 'form-horizontal' }) }}
+                            {{ csrfField }}
+
+                            <div class="form-group">
+                                {{ form.label('Name', 'Name', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.text('name', old('name'), { class: 'form-control' }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.label('Desc', 'Desc', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.textarea('desc', old('desc'), { class: 'form-control' }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.label('room', 'Rooms', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.textarea('room', old('room'), { class: 'form-control' }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.label('Desc', 'Vendor', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.textarea('vendor', old('vendor'), { class: 'form-control' }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.label('notes', 'Notes', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.textarea('notes', old('desc'), { class: 'form-control' }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              {{ form.label('notes', 'Date Buy', { class: 'col-md-4 control-label' }) }}
+
+                              <div class="input-group date form_datetime col-md-6" data-date="1979-09-16T05:25:07Z"
+                              data-date-format="yyyy-mm-dd HH:ii" data-link-field="dtp_input1">
+                                         <input class="form-control" size="10" name="datebuy" type="text"  readonly>
+                                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+
+                              </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    {{ form.button('Add items', null, { class: 'btn btn-primary' }) }}
+                                </div>
+                            </div>
+                        {{ form.close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+          $('.form_datetime').datetimepicker({
+            autoclose: true,
+            todayBtn: true,
+            format: "yyyy-mm-dd HH:ii",
+            pickerPosition: "bottom-left",
+            startDate : new Date()
+          });
+
+      </script>
+
+    </div>
+{% endblock %}

@@ -55,7 +55,11 @@
 
                                       {% if users.is_admin == '2' %}
                                           <span class="label label-success">Manajer</span>
-                                      {% else %}
+                                      {% elif users.is_admin == '3' %}
+                                              <span class="label label-info">Wakil Direktur</span>
+                                      {% elif users.is_admin == '4' %}
+                                            <span class="label label-primary">Direktur</span>
+                                      {% elif users.is_admin == '0' %}
                                           <span class="label label-danger">User</span>
                                       {% endif %}
                                     </td>

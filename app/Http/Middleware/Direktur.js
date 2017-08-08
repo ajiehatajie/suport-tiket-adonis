@@ -1,15 +1,14 @@
 'use strict'
 
-class Manajer {
-
+class Direktur {
 
   * handle (request, response, next) {
-    if (request.currentUser.is_admin !== 2) {
+    if (request.currentUser.is_admin !== 4) {
         response.redirect('/');
-    } 
+    }
     yield next
   }
 
 }
 
-module.exports = Manajer
+module.exports = Direktur

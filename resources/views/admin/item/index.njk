@@ -1,0 +1,58 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    Department
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+        <div class="row">
+          {% include 'layouts.sidebar' %}
+
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Department</div>
+                    <div class="panel-body">
+                      <a href="{{ ('/admin/items/create') }}" class="btn btn-success btn-sm" title="Add New Article">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                      </a>
+                        {% if old('error') %}
+                            <div class="alert alert-danger">
+                                {{ old('error') }}
+                            </div>
+                        {% endif %}
+
+
+                                            {% if items.length == 0 %}
+                                                <p>There are currently no tickets.</p>
+                                            {% else %}
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th style="text-align:center" colspan="2">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in items %}
+                                                        <tr>
+                                                            <td>{{ item.name }} </td>
+                                                            <td>
+                                                                {{ form.open({ url: '/admin/close_ticket/' + item.id, method: 'POST' }) }}
+                                                                    {{ csrfField }}
+                                                                    {{ form.button('Close', null, { class: 'btn btn-danger' }) }}
+                                                                {{ form.close() }}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

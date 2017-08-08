@@ -3,7 +3,7 @@
 const Lucid = use('Lucid')
 
 class Ticket extends Lucid {
-    
+
     /**
      * A ticket belongs to a category
      */
@@ -23,6 +23,10 @@ class Ticket extends Lucid {
      */
     user() {
         return this.belongsTo('App/Model/User')
+    }
+
+    updated() {
+      return this.belongsTo('App/Model/User','id','updated_by' )
     }
 }
 

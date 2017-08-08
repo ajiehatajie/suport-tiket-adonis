@@ -5,6 +5,7 @@ const Validator = use('Validator')
 const Ticket = use('App/Model/Ticket')
 const RandomString = use('randomstring')
 const Category = use('App/Model/Category')
+const Items   = use ('App/Model/Item')
 
 class TicketsController {
 
@@ -33,8 +34,8 @@ class TicketsController {
      */
     * create(request, response) {
         const categories = yield Category.pair('id', 'name')
-
-        yield response.sendView('tickets.create', {categories: categories})
+        const items = yield Items.pair('id','name')
+        yield response.sendView('tickets.create', {categories: categories,items: items})
     }
 
     /**
@@ -46,9 +47,9 @@ class TicketsController {
         // validate form input
         const validation = yield Validator.validateAll(request.all(), {
             title: 'required',
-            category: 'required',
             priority: 'required',
-            message: 'required'
+            message: 'required',
+            items:'required'
         })
 
         // show error messages upon validation fail
@@ -66,10 +67,10 @@ class TicketsController {
             title: request.input('title'),
             user_id: user.id,
             ticket_id: RandomString.generate({ length: 10, capitalization: 'uppercase' }),
-            category_id: request.input('category'),
             priority: request.input('priority'),
             message: request.input('message'),
             status: "Open",
+            id_item:request.input('items')
         })
 
         // send mail notification
@@ -92,12 +93,17 @@ class TicketsController {
                         .with('user')
                         .firstOrFail()
         const comments = yield ticket.comments().with('user').fetch()
-        const category = yield ticket.category().fetch()
+        const category = yield Category.pair('id','name')
+        const Category_ticket = yield  ticket.category().fetch()
+        const User = yield ticket.updated().fetch()
 
+        console.log(User);
         yield response.sendView('tickets.show', {
             ticket: ticket.toJSON(),
             comments: comments.toJSON(),
-            category: category.toJSON()
+            category: category,
+            category_ticket : Category_ticket,
+            users:User
         })
     }
 

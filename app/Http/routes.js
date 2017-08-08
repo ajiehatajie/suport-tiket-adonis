@@ -46,8 +46,9 @@ Route.group('admin', function () {
     Route.get('department/create','DepartmentController.create')
     Route.post('department','DepartmentController.store')
 
-
-
+    Route.get('items','ItemsController.index')
+    Route.get('items/create','ItemsController.create')
+    Route.post('items','ItemsController.store')
 
     Route.get('user','AdminController.index')
     Route.get('user/create','AdminController.addUser')
@@ -61,3 +62,16 @@ Route.group('manajer', function () {
     Route.post('approveticket/:ticket_id','ManajerController.approve')
     Route.get('sendmail','ManajerController.sendmail')
 }).prefix('manajer').middleware(['auth', 'manajer'])
+
+Route.group('superadmin', function () {
+    Route.get('tickets', 'WakilController.index');
+    Route.post('approveticket/:ticket_id','WakilController.approve')
+
+}).prefix('superadmin').middleware(['auth', 'wakil'])
+
+
+Route.group('direktur', function () {
+    Route.get('tickets', 'DirekturController.index');
+    Route.post('approveticket/:ticket_id','DirekturController.approve')
+
+}).prefix('direktur').middleware(['auth', 'direktur'])
