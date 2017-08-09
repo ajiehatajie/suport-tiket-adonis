@@ -152,6 +152,38 @@ class ManajerController {
         ,user:user.toJSON()
         ,userlogin:userLogin.toJSON() })
   }
+
+  * done (request,response) {
+
+    const tickets_close = yield Ticket.query()
+                          .where('status','Close')
+                          .fetch()
+    const tickets_open = yield Ticket.query()
+                          .where('status','Open')
+                          .fetch()
+     const user = yield User.all()
+    yield response.sendView('manajer.ticket.done', {user:user.toJSON(),
+                            tickets_close:tickets_close.toJSON()
+                            ,tickets_open:tickets_open.toJSON() })
+
+  }
+
+  * progress (request,response) {
+
+    const tickets_close = yield Ticket.query()
+                          .where('category_id',2)
+                          .where('status','Close')
+                          .fetch()
+    const tickets_progress = yield Ticket.query()
+                          .where('status','Open')
+                          .fetch()
+      const user = yield User.all()
+    yield response.sendView('manajer.ticket.progress', {user:user.toJSON(),
+                            tickets_close:tickets_close.toJSON()
+                            ,tickets_progress:tickets_progress.toJSON() })
+
+  }
+
 }
 
 module.exports = ManajerController

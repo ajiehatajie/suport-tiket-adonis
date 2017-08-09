@@ -2,7 +2,7 @@
 
 const Route = use('Route')
 
-Route.on('/').render('dashboard')
+Route.get('/','DashboardController.index').middleware('auth')
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +59,10 @@ Route.group('admin', function () {
 
 Route.group('manajer', function () {
     Route.get('tickets', 'ManajerController.index');
+    Route.get('tickets/done', 'ManajerController.done');
+    Route.get('tickets/progress', 'ManajerController.progress');
+
+
     Route.post('approveticket/:ticket_id','ManajerController.approve')
     Route.get('sendmail','ManajerController.sendmail')
 }).prefix('manajer').middleware(['auth', 'manajer'])

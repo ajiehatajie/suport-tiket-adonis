@@ -25,8 +25,19 @@ class TicketsController {
     * userTickets(request, response) {
         const tickets = yield Ticket.query().where('user_id', request.currentUser.id).fetch()
         const categories = yield Category.all()
+        const tickets_mainten = yield Ticket.query()
+                                .where('user_id', request.currentUser.id)
+                                .where('category_id',1)
+                                .fetch()
+        const tickets_new = yield Ticket.query()
+                                .where('user_id', request.currentUser.id)
+                                .where('category_id',2)
+                                .fetch()
 
-        yield response.sendView('tickets.user_tickets', { tickets: tickets.toJSON(), categories: categories.toJSON() })
+        yield response.sendView('tickets.user_tickets', {
+          tickets: tickets.toJSON(), categories: categories.toJSON(),
+          mainten: tickets_mainten.toJSON(),new:tickets_new.toJSON()
+         })
     }
 
     /**
@@ -97,7 +108,7 @@ class TicketsController {
         const Category_ticket = yield  ticket.category().fetch()
         const User = yield ticket.updated().fetch()
 
-        console.log(User);
+      //  console.log(User);
         yield response.sendView('tickets.show', {
             ticket: ticket.toJSON(),
             comments: comments.toJSON(),

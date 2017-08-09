@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% for ticket in tickets %}
+                            {% for ticket in tickets_close %}
                                 <tr>
 
                                     <td>
@@ -56,10 +56,8 @@
                                       {% endfor %}
                                     </td>
                                     <td>{{ ticket.updated_at }}</td>
-                                    <td>
-                                        <a href="/tickets/{{ ticket.ticket_id }}" class="btn btn-primary btn-xs">Comment</a>
-                                    </td>
-                                  
+                                    
+
                                 </tr>
                             {% endfor %}
                             </tbody>
