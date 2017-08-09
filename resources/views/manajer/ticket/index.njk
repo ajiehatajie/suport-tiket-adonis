@@ -1,12 +1,11 @@
-{% extends 'layouts.master' %}
+{% extends 'layouts.backend' %}
 
 {% block title %} All Tickets {% endblock %}
 
 {% block content %}
     <div class="row">
-      {% include 'layouts.sidebarmanajer' %}
 
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-ticket">
@@ -36,7 +35,7 @@
                             <tbody>
                             {% for ticket in tickets %}
                                 <tr>
-                              
+
                                     <td>
                                         <a href="/tickets/{{ ticket.ticket_id }}">
                                             #{{ ticket.ticket_id }} - {{ ticket.title }}

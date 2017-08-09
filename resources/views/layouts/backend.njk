@@ -1,62 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+        <meta name="author" content="Coderthemes">
 
-    <title>Ticketing Support - {% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+        <title>Ticketing Support - {% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-            <span class="sr-only">Menu</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Ticketing Support</a>
+        <!--Morris Chart CSS -->
+		    <link rel="stylesheet" href="/assets/plugins/morris/morris.css">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/core.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/components.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/pages.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/menu.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+
+        <script src="/assets/js/modernizr.min.js"></script>
+    </head>
+    <body>
+
+       {% include 'layouts.partials.navbar' %}
+        <div class="wrapper">
+              <div class="container">
+                <div class="row">
+
+                  <!-- Page-Title -->
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <div class="btn-group pull-right m-t-15">
+
+                          </div>
+                          <h4 class="page-title">Welcome {{ currentUser.username }},Your Privilleges is
+                            {% if currentUser.is_admin == 0 %}
+                            User
+                            {% elif currentUser.is_admin == 1%}
+                            admin
+                            {% elif currentUser.is_admin ==2 %}
+                            Manager
+                            {% elif currentUser.is_admin ==3 %}
+                            Wakil Direktur
+                            {% elif currentUser.is_admin ==4 %}
+                            Manager
+                            {% endif %}
+
+
+
+                          </h4>
+                      </div>
+                  </div>
+                  {% block content %}{% endblock %}
+
+                </div>
+                <!-- start -->
+
+
+                <!-- end start -->
+
+              </div>
+              {% include 'layouts.partials.footer2' %}
+
         </div>
-
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            {% ifAsync currentUser %}
-              <li><a href="/new_ticket">Open Ticket</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ currentUser.username }} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/my_tickets">My Tickets</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="/logout">Logout</a></li>
-                </ul>
-              </li>
-
-            {% else %}
-              <li><a href="/login">Login</a></li>
-
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      {% block content %}{% endblock %}
-    </div>
-
-    <div class="container">
-           &copy; 2017. Created by <a href="#"> Your name in here </a>
-           <br/>
-    </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</body>
+    <!-- end container -->
+        {% include 'layouts.partials.footer' %}
+    </body>
 </html>

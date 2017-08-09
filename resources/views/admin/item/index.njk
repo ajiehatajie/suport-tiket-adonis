@@ -1,15 +1,12 @@
-{% extends 'layouts.master' %}
+{% extends 'layouts.backend' %}
 
 {% block title %}
     Department
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-        <div class="row">
-          {% include 'layouts.sidebar' %}
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Department</div>
                     <div class="panel-body">
@@ -53,6 +50,5 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+      
 {% endblock %}

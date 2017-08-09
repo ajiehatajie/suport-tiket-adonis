@@ -2,7 +2,7 @@
 
 const Route = use('Route')
 
-Route.on('/').render('home')
+Route.on('/').render('dashboard')
 
 /*
 |--------------------------------------------------------------------------

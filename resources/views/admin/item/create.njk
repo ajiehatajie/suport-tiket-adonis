@@ -1,15 +1,11 @@
-{% extends 'layouts.master' %}
+{% extends 'layouts.backend' %}
 
 {% block title %}
     New Items
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-          {% include 'layouts.sidebar' %}
-
-            <div class="col-md-8">
+          <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">New Items </div>
                     <div class="panel-body">
@@ -79,8 +75,7 @@
                         {{ form.close() }}
                     </div>
                 </div>
-            </div>
-        </div>
+            
         <script type="text/javascript">
           $('.form_datetime').datetimepicker({
             autoclose: true,
