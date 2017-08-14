@@ -1,0 +1,63 @@
+{% extends 'layouts.backend' %}
+
+{% block title %}
+    Report
+{% endblock %}
+
+{% block content %}
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Report </div>
+                    <div class="panel-body">
+
+                        {% if old('error') %}
+                            <div class="alert alert-danger">
+                                {{ old('error') }}
+                            </div>
+                        {% endif %}
+
+                        {% if items.length == 0 %}
+                            <p>There are currently no tickets.</p>
+                        {% else %}
+
+                        <div class="form-group">
+                                               <label class="control-label col-sm-4">Date</label>
+                                               <div class="col-sm-8">
+                                                   <div class="input-daterange input-group" id="date-range">
+                                                       <input type="text" class="form-control" name="start" />
+                                                       <span class="input-group-addon bg-primary b-0 text-white">to</span>
+                                                       <input type="text" class="form-control" name="end" />
+                                                   </div>
+                                                   <div class="input-group">
+                                                       <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                                       <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                                                   </div><!-- input-group -->
+                                               </div>
+                     </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in tickets %}
+                                    <tr>
+                                        <td>{{ item.title }} </td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+
+
+
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

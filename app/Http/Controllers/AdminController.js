@@ -3,6 +3,7 @@ const User = use('App/Model/User')
 const Validator = use('Validator')
 const departemens = use('App/Model/Department')
 const Category = use('App/Model/Category')
+const Ticket = use('App/Model/Ticket')
 
 class AdminController {
 
@@ -49,6 +50,13 @@ class AdminController {
     response.redirect('/admin/user')
   }
 
+  * report (request,response) {
+
+    const Tiket = yield Ticket.all()
+
+    yield response.sendView('admin.report.index',{
+      tickets:Tiket.toJSON() } )
+  }
 }
 
 module.exports = AdminController

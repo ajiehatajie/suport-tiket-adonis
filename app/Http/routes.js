@@ -54,6 +54,8 @@ Route.group('admin', function () {
     Route.get('user/create','AdminController.addUser')
     Route.post('user','AdminController.store')
 
+    Route.get('report','AdminController.report')
+
 }).prefix('admin').middleware(['auth', 'admin'])
 
 

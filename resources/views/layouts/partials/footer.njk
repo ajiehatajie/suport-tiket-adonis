@@ -10,6 +10,12 @@
 <script src="/assets/js/wow.min.js"></script>
 <script src="/assets/js/jquery.nicescroll.js"></script>
 <script src="/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/assets/plugins/moment/moment.js"></script>
+<script src="/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="/assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 
 <!-- KNOB JS -->
 <!--[if IE]>
@@ -18,12 +24,40 @@
 <script src="/assets/plugins/jquery-knob/jquery.knob.js"></script>
 
 <!--Morris Chart-->
-<script src="/assets/plugins/morris/morris.min.js"></script>
+
 <script src="/assets/plugins/raphael/raphael-min.js"></script>
 
 <!-- Dashboard init -->
-<script src="/assets/pages/jquery.dashboard.js"></script>
+
 
 <!-- App js -->
 <script src="/assets/js/jquery.core.js"></script>
 <script src="/assets/js/jquery.app.js"></script>
+
+<script>
+  jQuery('#datepicker').datepicker({
+    defaultDate: new Date(),
+    format:'yyyy-mm-dd',
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+
+  });
+
+jQuery(document).ready(function() {
+            jQuery('#date-range').datepicker({
+                 toggleActive: true,
+                 autoclose: true,
+                 todayHighlight: true
+             });
+
+             //Date range picker
+             $('.input-daterange-datepicker').daterangepicker({
+                 buttonClasses: ['btn', 'btn-sm'],
+                 applyClass: 'btn-default',
+                 cancelClass: 'btn-primary'
+             });
+
+})
+
+</script>

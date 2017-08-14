@@ -55,15 +55,10 @@
                             </div>
                             <div class="form-group">
                               {{ form.label('notes', 'Date Buy', { class: 'col-md-4 control-label' }) }}
-
-                              <div class="input-group date form_datetime col-md-6" data-date="1979-09-16T05:25:07Z"
-                              data-date-format="yyyy-mm-dd HH:ii" data-link-field="dtp_input1">
-                                         <input class="form-control" size="10" name="datebuy" type="text"  readonly>
-                                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-
-                              </div>
-
+                                <div class="col-md-6">
+                                  <input type="text" class="form-control" name="datebuy" placeholder="yyyy-mm-dd" id="datepicker">
+                                  <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                                </div>
                             </div>
 
 
@@ -75,17 +70,7 @@
                         {{ form.close() }}
                     </div>
                 </div>
-            
-        <script type="text/javascript">
-          $('.form_datetime').datetimepicker({
-            autoclose: true,
-            todayBtn: true,
-            format: "yyyy-mm-dd HH:ii",
-            pickerPosition: "bottom-left",
-            startDate : new Date()
-          });
 
-      </script>
 
     </div>
 {% endblock %}

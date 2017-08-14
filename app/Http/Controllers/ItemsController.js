@@ -49,7 +49,7 @@ class ItemsController {
 
 
     yield request.with({ status: `A Items is Created .` }).flash()
-    response.redirect('back')
+    response.redirect('/admin/items')
 
   }
 
