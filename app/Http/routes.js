@@ -78,6 +78,7 @@ Route.group('superadmin', function () {
     Route.get('tickets', 'WakilController.index');
     Route.post('approveticket/:ticket_id','WakilController.approve')
     Route.get('tickets/progress', 'ManajerController.progress');
+    Route.get('tickets/done', 'ManajerController.done');
 
 }).prefix('superadmin').middleware(['auth', 'wakil'])
 
@@ -86,4 +87,6 @@ Route.group('direktur', function () {
     Route.get('tickets', 'DirekturController.index');
     Route.post('approveticket/:ticket_id','DirekturController.approve')
     Route.get('tickets/progress', 'ManajerController.progress');
+    Route.get('tickets/done', 'ManajerController.done');
+
 }).prefix('direktur').middleware(['auth', 'direktur'])

@@ -114,21 +114,20 @@
                                  <a href="/manajer/tickets/progress"><i class="zmdi zmdi-collection-text"></i><span>Tickets Progress</span> </a>
                              </li>
 
-                             <li class="has-submenu">
-                                 <a href="/manajer/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
-                             </li>
+
 
                          {% elif currentUser.is_admin == 3 %} <!-- buat wakildirektur -->
                          <li class="has-submenu">
                              <a href="/superadmin/tickets"><i class="zmdi zmdi-collection-text"></i><span> My Tickets </span> </a>
                          </li>
                          <li class="has-submenu">
-                             <a href="/superadmin/tickets/done"><i class="zmdi zmdi-collection-text"></i><span>Tickets Done</span> </a>
+                             <a href="/superadmin/tickets/progress"><i class="zmdi zmdi-collection-text"></i><span>Tickets progress</span> </a>
                          </li>
 
                          <li class="has-submenu">
-                             <a href="/superadmin/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
+                             <a href="/superadmin/tickets/done"><i class="zmdi zmdi-collection-text"></i><span>Tickets Done</span> </a>
                          </li>
+
 
                          {% elif currentUser.is_admin == 4 %} <!-- buat direktur -->
                          <li class="has-submenu">
@@ -138,9 +137,7 @@
                              <a href="/direktur/tickets/done"><i class="zmdi zmdi-collection-text"></i><span>Tickets Done</span> </a>
                          </li>
 
-                         <li class="has-submenu">
-                             <a href="/direktur/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
-                         </li>
+
                           {% endif %}
                     {% endif %}
 
