@@ -33,6 +33,9 @@
 <!-- App js -->
 <script src="/assets/js/jquery.core.js"></script>
 <script src="/assets/js/jquery.app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
+</script>
+
 
 <script>
   jQuery('#datepicker').datepicker({
@@ -48,7 +51,8 @@ jQuery(document).ready(function() {
             jQuery('#date-range').datepicker({
                  toggleActive: true,
                  autoclose: true,
-                 todayHighlight: true
+                 todayHighlight: true,
+                 format: 'yyyy-mm-dd',
              });
 
              //Date range picker

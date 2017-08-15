@@ -26,7 +26,7 @@
                                     <th>Email</th>
                                     <th>Department</th>
                                     <th>Position</th>
-                                    <th style="text-align:center" colspan="2">Actions</th>
+                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,12 +59,7 @@
                                       {% endif %}
                                     </td>
                                     </td>
-                                    <td>
-                                        {{ form.open({ url: '/admin/close_ticket/' + ticket.ticket_id, method: 'POST' }) }}
-                                            {{ csrfField }}
-                                            {{ form.button('Close', null, { class: 'btn btn-danger' }) }}
-                                        {{ form.close() }}
-                                    </td>
+
                                 </tr>
                             {% endfor %}
                             </tbody>

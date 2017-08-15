@@ -4,6 +4,8 @@ const Validator = use('Validator')
 const departemens = use('App/Model/Department')
 const Category = use('App/Model/Category')
 const Ticket = use('App/Model/Ticket')
+const Database = use('Database')
+const Antl = use('Antl')
 
 class AdminController {
 
@@ -52,8 +54,37 @@ class AdminController {
 
   * report (request,response) {
 
-    const Tiket = yield Ticket.all()
+    var Tiket;
+    var req = request.get()
 
+    var start = req.start
+    var end   = req.end
+
+    if (start != null) {
+      console.log(start);
+      //var hasil = yield Ticket.query().whereBetween('created_at =',[start,end])
+
+      Tiket = yield Database.from('tickets').whereRaw('date(created_at) between ? and ?', [start,end])
+      console.log(Tiket);
+    } else {
+      start =null;
+      end=null;
+      const Tiket2 = yield Ticket.all()
+      Tiket = Tiket2.toJSON()
+    }
+    //const Category_ticket = yield  Ticket.category().fetch()
+    const categories = yield Category.all()
+    const user = yield User.all()
+
+
+    yield response.sendView('admin.report.index',{
+      tickets:Tiket,start:start,end:end,categories: categories.toJSON(),user:user.toJSON() } )
+  }
+
+  * postreport (request,response) {
+
+    const Tiket = yield Ticket.all()
+    console.log(request)  ;
     yield response.sendView('admin.report.index',{
       tickets:Tiket.toJSON() } )
   }

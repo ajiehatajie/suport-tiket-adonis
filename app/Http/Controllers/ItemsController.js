@@ -1,13 +1,16 @@
 'use strict'
 const Items = use('App/Model/item')
 const Validator = use('Validator')
-
+const Category = use ('App/Model/Category')
+const Antl = use('Antl')
 class ItemsController {
+
+
 
   * index (request,response) {
     const item = yield Items.all()
-
-    yield response.sendView('admin.item.index', { items:item.toJSON() } )
+    const category = yield Category.all()
+    yield response.sendView('admin.item.index', { items:item.toJSON(),category:category.toJSON() } )
 
   }
 
@@ -59,7 +62,10 @@ class ItemsController {
   }
 
   * edit (request,response) {
-
+    const item = yield Items.query().where('id',request.param('item_id')).firstOrFail()
+    const time = Antl.formatDate(item.date_buy, { month:'numeric',day:'numeric',year:'numeric' })
+    yield response.sendView('admin.item.edit',{ items:item.toJSON(),time:time } )
+    console.log(time);
   }
 
   * update (request,response) {

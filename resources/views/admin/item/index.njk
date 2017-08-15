@@ -27,6 +27,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
+                                                            <th>Romm</th>
+                                                            <th>Vendor</th>
+                                                            <th>Date Buy</th>
                                                             <th style="text-align:center" colspan="2">Actions</th>
                                                         </tr>
                                                     </thead>
@@ -34,10 +37,18 @@
                                                     {% for item in items %}
                                                         <tr>
                                                             <td>{{ item.name }} </td>
+                                                            <td>{{ item.room }} </td>
+                                                            <td>{{ item.vendor}} </td>
+                                                            <td>{{ item.date_buy}} </td>
                                                             <td>
-                                                                {{ form.open({ url: '/admin/close_ticket/' + item.id, method: 'POST' }) }}
-                                                                    {{ csrfField }}
-                                                                    {{ form.button('Close', null, { class: 'btn btn-danger' }) }}
+                                                                {{ form.open({ url: '/admin/items/edit/' + item.id, method: 'GET' }) }}
+
+                                                                    {{ form.button('Edit', null, { class: 'btn btn-info btn-xs' }) }}
+                                                                {{ form.close() }}
+
+                                                                {{ form.open({ url: '/admin/items/detail/' + item.id, method: 'GET' }) }}
+
+                                                                    {{ form.button('Detail', null, { class: 'btn btn-warning btn-xs' }) }}
                                                                 {{ form.close() }}
                                                             </td>
                                                         </tr>

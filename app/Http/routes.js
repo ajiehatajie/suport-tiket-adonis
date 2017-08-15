@@ -49,12 +49,17 @@ Route.group('admin', function () {
     Route.get('items','ItemsController.index')
     Route.get('items/create','ItemsController.create')
     Route.post('items','ItemsController.store')
+    Route.get('items/edit/:item_id','ItemsController.edit')
+    Route.get('items/detail/:item_id','ItemsController.show')
+
 
     Route.get('user','AdminController.index')
     Route.get('user/create','AdminController.addUser')
     Route.post('user','AdminController.store')
 
     Route.get('report','AdminController.report')
+    Route.post('report','AdminController.report')
+
 
 }).prefix('admin').middleware(['auth', 'admin'])
 
