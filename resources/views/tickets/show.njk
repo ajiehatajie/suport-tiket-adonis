@@ -71,18 +71,24 @@
 
                                    {% elif currentUser.departemen_id == 2 %} <!-- manager ipsrs -->
                                       <b>{{users.username}}</b>
-                                     {% if ticket.status_approve == 2 %}
-                                          {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
-                                            {{ csrfField }}
+                                            {% if ticket.category_id== 1 %}
+                                                     {{ form.open({ url: '/manajer/closeticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                                            {{ csrfField }}
+                                                           {{ form.button('Close Ticket', null, { class: 'btn btn-danger' }) }}
+                                                   {{ form.close() }}
 
-                                            {{ form.select('category', category, null, 'Select category', { class: 'form-control' }) }}
+                                            {% else %}
+                                                     {% if ticket.status_approve == 2 %}
+                                                        {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                                            {{ csrfField }}
+                                                            {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null,
+                                                            'status ticket', { class: 'form-control col-md-4' }) }}
+                                                            {{ form.button('Status', null, { class: 'btn btn-danger' }) }}
+                                                            {{ form.close() }}
+                                                        {% endif %}
 
-                                       {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null,
-                                       'status ticket', { class: 'form-control col-md-4' }) }}
-
-                                       {{ form.button('Update Status', null, { class: 'btn btn-danger' }) }}
-                                       {{ form.close() }}
-                                         {% endif %}
+                                            {% endif %}
+                                        
                                    {% elif currentUser.departemen_id == 3 %} <!-- manager ipsrs -->
                                     <b>{{users.username}} | {{ tickets.status_approve }}</b>
                                     {% if ticket.status_approve == 3 %}
@@ -126,9 +132,19 @@
                                     {{ form.button('Update Direktur', null, { class: 'btn btn-danger' }) }}
                                    {{ form.close() }}
                                   {% endif %}
-                              {% elif currentUser.is_admin == 1  %}
-                               <li><a href="/admin">Dashboard</a></li>
+                              {% elif currentUser.is_admin == 0  %}
+                                   {% if currentUser.departemen_id == 2 %} <!-- user teknisi -->
+                                         {{ form.open({ url: '/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                            {{ csrfField }}
 
+                                            {{ form.select('category', category, null, 'Select category', { class: 'form-control' }) }}
+
+                                           {{ form.button('Update Status', null, { class: 'btn btn-danger' }) }}
+                                        {{ form.close() }}
+
+                                   {% else %}
+
+                                   {% endif %}
                               {% endif %}
 
                               {% else  %}

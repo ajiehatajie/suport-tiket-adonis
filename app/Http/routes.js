@@ -25,6 +25,11 @@ Route.post('new_ticket', 'TicketsController.store').middleware('auth')
 Route.get('tickets/:ticket_id', 'TicketsController.show').middleware('auth')
 Route.get('my_tickets', 'TicketsController.userTickets').middleware('auth')
 
+Route.get('ticket_teknisi', 'TicketsController.ticketteknisi').middleware('auth')
+Route.post('approveticket/:ticket_id','TicketsController.approve').middleware('auth')
+
+
+
 Route.post('comment', 'CommentsController.postComment')
 Route.get('test','CategoriesController.test')
 /*
@@ -71,6 +76,8 @@ Route.group('manajer', function () {
 
 
     Route.post('approveticket/:ticket_id','ManajerController.approve')
+    Route.post('closeticket/:ticket_id','ManajerController.close')
+    
     Route.get('sendmail','ManajerController.sendmail')
 }).prefix('manajer').middleware(['auth', 'manajer'])
 

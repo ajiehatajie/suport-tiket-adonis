@@ -36,7 +36,6 @@
 
                     <li class="dropdown user-box">
                         <a href="" class="dropdown-toggle waves-effect waves-light profile " data-toggle="dropdown" aria-expanded="true">
-                            <img src="/assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle user-img">
                             <div class="user-status away"><i class="zmdi zmdi-dot-circle"></i></div>
                         </a>
 
@@ -75,18 +74,34 @@
                     {% ifAsync currentUser %}
                          {% if currentUser.is_admin == 0  %} <!-- buat user -->
 
-                         <li class="has-submenu">
-                             <a href="/my_tickets"><i class="zmdi zmdi-collection-text"></i><span> My Tickets </span> </a>
-                         </li>
-                         <li class="has-submenu">
-                             <a href="/new_ticket"><i class="zmdi zmdi-collection-text"></i><span> Create Tickets </span> </a>
-                         </li>
+                                {% if currentUser.departemen_id ==2 %}
+                                 <li class="has-submenu">
+                                        <a href="/ticket_teknisi"><i class="zmdi zmdi-collection-text"></i><span> My Tickets Teknisi </span> </a>
+                                    </li>
+                                  
+                                    <li class="has-submenu">
+                                        <a href="/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
+                                    </li>
+                                {% else %}
+                                <li class="has-submenu">
+                                            <a href="/my_tickets"><i class="zmdi zmdi-collection-text"></i><span> My Tickets </span> </a>
+                                        </li>
+                                        <li class="has-submenu">
+                                            <a href="/new_ticket"><i class="zmdi zmdi-collection-text"></i><span> Create Tickets </span> </a>
+                                        </li>
 
-                         <li class="has-submenu">
-                             <a href="/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
-                         </li>
+                                        <li class="has-submenu">
+                                            <a href="/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
+                                </li>
 
+                                {% endif %}
+                     
                          {% elif currentUser.is_admin == 1 %} <!-- buat admin -->
+                        
+                         <li class="has-submenu">
+                             <a href="/admin/ticket"><i class="zmdi zmdi-collection-text"></i><span> Ticket </span> </a>
+                         </li>
+
                          <li class="has-submenu">
                              <a href="/admin/user"><i class="zmdi zmdi-collection-text"></i><span> User </span> </a>
                          </li>
@@ -98,11 +113,11 @@
                          </li>
                          <li class="has-submenu">
                              <a href="/admin/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
+                             <a href="/admin/service"><i class="zmdi zmdi-collection-text"></i><span> Service Info </span> </a>
+                         
                          </li>
 
-                         <li class="has-submenu">
-                             <a href="/admin/service"><i class="zmdi zmdi-collection-text"></i><span> Service Info </span> </a>
-                         </li>
+                         
                          {% elif currentUser.is_admin == 2 %} <!-- buat manager -->
                              <li class="has-submenu">
                                  <a href="/manajer/tickets"><i class="zmdi zmdi-collection-text"></i><span> My Tickets </span> </a>
@@ -140,7 +155,10 @@
 
                           {% endif %}
                     {% endif %}
-
+                    <li class="has-submenu">
+                    
+                             <a href="/logout"><i class="zmdi zmdi-collection-text"></i><span> Logout </span> </a>
+                         </li>
 
                 </ul>
                 <!-- End navigation menu  -->

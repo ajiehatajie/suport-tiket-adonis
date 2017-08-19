@@ -40,6 +40,18 @@ class TicketsController {
          })
     }
 
+    * ticketteknisi (request,response) {
+        
+        const tickets = yield Ticket.query().where('status', 'Open')
+                              .where('status_approve',2)
+                              .fetch()
+        const categories = yield Category.all()
+      
+        yield response.sendView('tickets.user_tickets', {
+            tickets: tickets.toJSON(), categories: categories.toJSON()
+           
+           })
+    }
     /**
      * Show the form for opening a new ticket.
      */
@@ -140,6 +152,29 @@ class TicketsController {
         yield request.with({ status: 'The ticket has been closed.' }).flash()
         response.redirect('back')
     }
+
+
+    * approve (request,response) {
+        const user = request.currentUser
+    
+        const ticket = yield Ticket.query()
+                        .where('ticket_id', request.param('ticket_id'))
+                        .firstOrFail()
+        const status = request.input('status')
+        const category = request.input('category')
+
+        ticket.category_id = category
+
+       ticket.check = 'Y'
+        ticket.updated_by = user.id
+        yield ticket.save()
+    
+        const ticketOwner = yield ticket.user().fetch()
+    
+        yield request.with({ status: 'The ticket has been Approve.' }).flash()
+        response.redirect('/manajer/tickets')
+    
+      }
 }
 
 module.exports = TicketsController
