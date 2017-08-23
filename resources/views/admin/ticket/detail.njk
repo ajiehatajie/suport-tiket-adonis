@@ -1,0 +1,129 @@
+{% extends 'layouts.backend' %}
+
+{% block title %}
+    {{ ticket.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    #{{ ticket.ticket_id }} - {{ ticket.title }}
+                </div>
+
+                <div class="panel-body">
+                    {% include 'includes.status' %}
+                    {% include 'includes.errors' %}
+
+                    <div class="ticket-info">
+                      <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Subject </th>
+                          <td>{{ ticket.message }}</td>
+                        </tr>
+                          {% if category_ticket != null %}
+                            {% if category_ticket.length != 0 %}
+                              <tr>
+                                <th>Category Ticket </th>
+                                <td>{{ category_ticket.name }}</td>
+                              </tr>
+                            {% endif %}
+                        {% endif %}
+
+                        <tr>
+                          <th>Status</th>
+                          <td>{% if ticket.status == 'Open' %}
+                              <span class="label label-success">{{ ticket.status }}</span>
+                          {% else %}
+                              <span class="label label-danger">{{ ticket.status }}</span>
+                          {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td>{{ ticket.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% if ticket.status_approve == 2 %}
+                            Select Category And Approve
+                                {% else %}
+                                Last Approve
+                                {% endif %}
+                            </th>
+                            <td>
+                              {% if ticket.status == 'Open' %}
+
+
+                                 {% if currentUser.is_admin == 1  %}
+                                        {% if ticket.status_approve == 2 %}
+                                                {{ form.open({ url: '/admin/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                                    {{ csrfField }}
+                                                    {{ form.select('category', category, null, 'Select category', { class: 'form-control' }) }}
+                                                    {{ form.button('Status', null, { class: 'btn btn-danger' }) }}
+                                                {{ form.close() }}
+                                        {% else  %}
+                                          <b>{{users.username}}</b>
+                                                {{ form.open({ url: '/admin/done/' + ticket.ticket_id, method: 'POST' }) }}
+                                                    {{ csrfField }}
+                                                    {{ form.button('Done', null, { class: 'btn btn-danger' }) }}
+                                                {{ form.close() }}
+                                        {% endif %}
+                                 {% endif %} 
+                              {% else  %}
+
+                                <span class="label label-success">{{ users.username }}</span>
+
+                             {% endif %}
+                            </td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="comments">
+                    {% for comment in comments %}
+                        <div class="panel panel-{{ "default" if ticket.user.id == comment.user_id else "success" }}">
+                            <div class="panel panel-heading">
+                                {{ comment.user.username }}
+                                <span class="pull-right">{{ comment.created_at }}</span>
+                            </div>
+
+                            <div class="panel panel-body">
+                                {{ comment.comment }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                  {% if ticket.status == 'Open' %}
+                    <div class="comment-form">
+                        {{ form.open({ url: '/comment', method: 'POST', class: 'form' }) }}
+                            {{ csrfField }}
+
+                            {{ form.hidden('ticket_id', ticket.id) }}
+
+                            <div class="form-group">
+                                {{ form.textarea('comment', null, { class: 'form-control', rows: 10 }) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.button('Submit', null, { class: 'btn btn-primary' }) }}
+                            </div>
+                        {{ form.close() }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

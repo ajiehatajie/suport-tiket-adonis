@@ -5,7 +5,9 @@
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="/" class="logo"><span>Dashboard</span></a>
+                <a href="/" class="logo"><span>
+                <img src="/logo.jpeg" class="img" width="50"/>Dashboard
+                </span></a>
             </div>
             <!-- End Logo container-->
 
@@ -35,8 +37,9 @@
                     </li>
 
                     <li class="dropdown user-box">
-                        <a href="" class="dropdown-toggle waves-effect waves-light profile " data-toggle="dropdown" aria-expanded="true">
-                            <div class="user-status away"><i class="zmdi zmdi-dot-circle"></i></div>
+                        <a href="#" class="dropdown-toggle waves-effect waves-light profile " 
+                        data-toggle="dropdown" aria-expanded="true">
+                           <img src="/assets/images/users/user.png" alt="user-img" class="img-circle">  <div class="user-status away"><i class="zmdi zmdi-dot-circle"></i></div>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -111,13 +114,16 @@
                          <li class="has-submenu">
                              <a href="/admin/department"><i class="zmdi zmdi-collection-text"></i><span> Department </span> </a>
                          </li>
+                         
                          <li class="has-submenu">
-                             <a href="/admin/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
-                             <a href="/admin/service"><i class="zmdi zmdi-collection-text"></i><span> Service Info </span> </a>
-                         
+                                <a href="#"><i class="md md-color-lens"></i>UI</a>
+                                <ul class="submenu">
+                                      <li><a href="/admin/report"> Report </a></li>
+                                     <li><a href="/admin/service">Service Info </a></li>
+                             
+                                </ul>
                          </li>
-
-                         
+                          
                          {% elif currentUser.is_admin == 2 %} <!-- buat manager -->
                              <li class="has-submenu">
                                  <a href="/manajer/tickets"><i class="zmdi zmdi-collection-text"></i><span> My Tickets </span> </a>

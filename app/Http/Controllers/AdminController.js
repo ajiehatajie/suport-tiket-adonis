@@ -80,6 +80,78 @@ class AdminController {
     yield response.sendView('admin.report.index',{
       tickets:Tiket,start:start,end:end,categories: categories.toJSON(),user:user.toJSON() } )
   }
+  
+  * ticket_wait (request,response) {
+    
+    const tickets = yield Ticket.query().where('status', 'Open')
+                          .whereIn('status_approve',[2,4,7])
+                          .whereNotIn('updated_by',1)
+                          .fetch()
+    const categories = yield Category.all()
+  
+    yield response.sendView('tickets.user_tickets', {
+        tickets: tickets.toJSON(), categories: categories.toJSON()
+       
+       })
+ }
+
+ * ticket_done (request,response) {
+    const user = request.currentUser
+ 
+    const ticket = yield Ticket.query()
+    .where('ticket_id', request.param('ticket_id'))
+    .firstOrFail()
+
+    ticket.status_approve = 4 
+    ticket.updated_by = user.id
+    ticket.status = 'Close'
+    yield ticket.save()
+
+yield request.with({ status: 'The ticket has been Done.' }).flash()
+response.redirect('/admin/ticket') 
+ 
+}
+
+
+ * show(request, response) {
+ const ticket = yield Ticket.query()
+                 .where('ticket_id', request.param('ticket_id'))
+                 .with('user')
+                 .firstOrFail()
+ const comments = yield ticket.comments().with('user').fetch()
+ const category = yield Category.pair('id','name')
+ const Category_ticket = yield  ticket.category().fetch()
+ const User = yield ticket.updated().fetch()
+
+//  console.log(User);
+ yield response.sendView('admin.ticket.detail', {
+     ticket: ticket.toJSON(),
+     comments: comments.toJSON(),
+     category: category,
+     category_ticket : Category_ticket,
+     users:User
+ })
+}
+
+* approve (request,response) {
+  const user = request.currentUser
+
+  const ticket = yield Ticket.query()
+                  .where('ticket_id', request.param('ticket_id'))
+                  .firstOrFail()
+  const category = request.input('category')
+
+  ticket.category_id = category
+  ticket.check = 'Y'
+  ticket.updated_by = user.id
+  yield ticket.save()
+
+  const ticketOwner = yield ticket.user().fetch()
+
+  yield request.with({ status: 'The ticket has been Approve.' }).flash()
+  response.redirect('/admin/ticket')
+
+}
 
   * postreport (request,response) {
 

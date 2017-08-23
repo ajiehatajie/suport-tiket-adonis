@@ -40,7 +40,7 @@
                           <div class="btn-group pull-right m-t-15">
 
                           </div>
-                          <h4 class="page-title">Welcome {{ currentUser.username }},Your Privilleges is
+                          <h5 class="page-title">Welcome {{ currentUser.username }},Your Privilleges is
                             {% if currentUser.is_admin == 0 %}
                             User
                             {% elif currentUser.is_admin == 1%}
@@ -55,7 +55,7 @@
 
 
 
-                          </h4>
+                          </h5>
                       </div>
                   </div>
                   {% block content %}{% endblock %}

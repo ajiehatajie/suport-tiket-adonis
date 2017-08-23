@@ -40,8 +40,14 @@ Route.get('test','CategoriesController.test')
 Route.group('admin', function () {
     Route.get('/','AdminController.index')
     Route.get('dashboard','AdminController.index').as('admin')
-    Route.get('tickets', 'TicketsController.index');
+    //Route.get('ticket', 'TicketsController.index');
+    Route.get('ticket', 'AdminController.ticket_wait');
+    Route.get('tickets/:ticket_id', 'AdminController.show')
+    Route.post('done/:ticket_id','AdminController.ticket_done')
+    Route.post('approveticket/:ticket_id','AdminController.approve')
+    
     Route.post('close_ticket/:ticket_id', 'TicketsController.close');
+
 
     Route.get('category','CategoriesController.index')
     Route.get('category/add','CategoriesController.add')
@@ -76,6 +82,10 @@ Route.group('manajer', function () {
 
 
     Route.post('approveticket/:ticket_id','ManajerController.approve')
+    Route.post('approveipsrs/:ticket_id','ManajerController.approveipsrs')
+    Route.post('approvert/:ticket_id','ManajerController.approvert')
+    
+    
     Route.post('closeticket/:ticket_id','ManajerController.close')
     
     Route.get('sendmail','ManajerController.sendmail')

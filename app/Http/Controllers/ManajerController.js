@@ -66,40 +66,24 @@ class ManajerController {
               ticket.status ='Reject'
             }
 
-          } else if (category ==2) { //request new
-            if(status=='approve')
-            {
+          } else if (category == 2 ) { //request new
+           
                 ticket.status_approve = 3 //step 3 approve
                 ticket.status ='Open'
-            }
+            
           }
       }
       else if (user.departemen_id == 3) {
-        if(status=='approve')
-        {
-          ticket.status_approve = 4 //step 4
-        } else {
-            ticket.status ='Close'
-        }
-
+        //new manager ipsrs
+         ticket.status_approve = 4 //step 4
+       
       }
       else if (user.departemen_id == 4) {
-        if(status=='approve')
-        {
           ticket.status_approve = 5 //step 5
-        } else {
-            ticket.status ='Close'
-        }
-
       }
       else if (user.departemen_id == 5) {
-        if(status=='approve')
-        {
-          ticket.status_approve = 5 //step 5
-        } else {
-            ticket.status ='Close'
-        }
-
+          ticket.status_approve = 6 //step 5
+       
       }
 
 
@@ -128,6 +112,40 @@ class ManajerController {
     yield request.with({ status: 'The ticket has been Approve.' }).flash()
     response.redirect('/manajer/tickets')
     
+  }
+
+  * approveipsrs (request,response) {
+    const user = request.currentUser
+    const ticket = yield Ticket.query()
+                        .where('ticket_id', request.param('ticket_id'))
+                        .firstOrFail()
+   
+    ticket.status_approve = 3 
+    ticket.updated_by = user.id
+    yield ticket.save()
+
+    const ticketOwner = yield ticket.user().fetch()
+
+    yield request.with({ status: 'The ticket has been Approve.' }).flash()
+    response.redirect('/manajer/tickets')
+
+  }
+
+  * approvert (request,response) {
+    const user = request.currentUser
+    const ticket = yield Ticket.query()
+                        .where('ticket_id', request.param('ticket_id'))
+                        .firstOrFail()
+   
+    ticket.status_approve = 4 
+    ticket.updated_by = user.id
+    yield ticket.save()
+
+    const ticketOwner = yield ticket.user().fetch()
+
+    yield request.with({ status: 'The ticket has been Approve.' }).flash()
+    response.redirect('/manajer/tickets')
+
   }
   * sendmail (request,response) {
 

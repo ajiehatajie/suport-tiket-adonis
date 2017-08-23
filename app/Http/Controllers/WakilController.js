@@ -41,13 +41,8 @@ class WakilController {
     const category = request.input('category')
 
     console.log(`status dari wakil ${status} `);
-    if(status=='approve')
-    {
-      ticket.status_approve = 6 //step 5
-    } else {
-        ticket.status ='Close'
-    }
-
+    ticket.status_approve = 6 //step 5
+   
     ticket.updated_by = user.id
     yield ticket.save()
 

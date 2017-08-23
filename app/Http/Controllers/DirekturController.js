@@ -36,14 +36,7 @@ class DirekturController {
     const category = request.input('category')
 
     console.log(`status dari direktur ${status} `);
-    if(status=='approve')
-    {
-      ticket.status_approve = 7 //step 5
-      ticket.status ='Close'
-    } else {
-        ticket.status ='Close'
-    }
-
+    ticket.status_approve = 7 //step 5
     ticket.updated_by = user.id
     yield ticket.save()
 

@@ -23,21 +23,25 @@ class ItemsController {
 
     // validate form input
     const validation = yield Validator.validateAll(request.all(), {
+        code:'required',
         name: 'required',
         desc: 'required',
         room: 'required',
         vendor: 'required',
         notes:'required',
-        datebuy:'required'
+        datebuy:'required',
+        expired:'required'
     })
 
     const items= yield Items.create({
+        code  :request.input('code'),
         name  :request.input('name'),
         desc  :request.input('desc'),
         room  :request.input('room'),
         vendor:request.input('vendor'),
         notes :request.input('notes'),
-        date_buy:request.input('datebuy')
+        date_buy:request.input('datebuy'),
+        expired  :request.input('expired')
     })
 
     // show error messages upon validation fail

@@ -164,8 +164,10 @@ class TicketsController {
         const category = request.input('category')
 
         ticket.category_id = category
-
-       ticket.check = 'Y'
+        console.log('====================================');
+        console.log(category);
+        console.log('====================================');
+        ticket.check = 'Y'
         ticket.updated_by = user.id
         yield ticket.save()
     

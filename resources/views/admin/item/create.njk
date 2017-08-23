@@ -17,12 +17,18 @@
 
                         {{ form.open({ url: '/admin/items', method: 'POST', class: 'form-horizontal' }) }}
                             {{ csrfField }}
+                             <div class="form-group">
+                                {{ form.label('Code Items', 'Code Item', { class: 'col-md-4 control-label' }) }}
 
+                                <div class="col-md-6">
+                                    {{ form.text('code', old('code'), { class: 'form-control',required:'true' }) }}
+                                </div>
+                            </div>
                             <div class="form-group">
                                 {{ form.label('Name', 'Name', { class: 'col-md-4 control-label' }) }}
 
                                 <div class="col-md-6">
-                                    {{ form.text('name', old('name'), { class: 'form-control' }) }}
+                                    {{ form.text('name', old('name'), { class: 'form-control',required:'true' }) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -56,7 +62,14 @@
                             <div class="form-group">
                               {{ form.label('notes', 'Date Buy', { class: 'col-md-4 control-label' }) }}
                                 <div class="col-md-6">
-                                  <input type="text" class="form-control" name="datebuy" placeholder="yyyy-mm-dd" id="datepicker">
+                                  <input type="text" class="form-control" required="true" name="datebuy" placeholder="yyyy-mm-dd" id="datepicker">
+                                  <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                              {{ form.label('Expired Date', 'Expired Date', { class: 'col-md-4 control-label' }) }}
+                                <div class="col-md-6">
+                                  <input type="text" class="form-control" required="true" name="expired" placeholder="yyyy-mm-dd" id="datepicker2">
                                   <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
                                 </div>
                             </div>
