@@ -49,14 +49,14 @@
                                 {{ form.label('Desc', 'Vendor', { class: 'col-md-4 control-label' }) }}
 
                                 <div class="col-md-6">
-                                    {{ form.textarea('vendor', old('vendor'), { class: 'form-control' }) }}
+                                    {{ form.textarea('vendor', old('vendor'), { class: 'form-control', required:'true'}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ form.label('notes', 'Notes', { class: 'col-md-4 control-label' }) }}
 
                                 <div class="col-md-6">
-                                    {{ form.textarea('notes', old('desc'), { class: 'form-control' }) }}
+                                    {{ form.textarea('notes', old('desc'), { class: 'form-control' , required:'true'}) }}
                                 </div>
                             </div>
                             <div class="form-group">

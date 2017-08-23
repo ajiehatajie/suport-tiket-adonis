@@ -70,7 +70,8 @@ Route.group('admin', function () {
 
     Route.get('report','AdminController.report')
     Route.post('report','AdminController.report')
-
+    Route.get('report/detail/:ticket_id', 'AdminController.reportdetail')
+    
 
 }).prefix('admin').middleware(['auth', 'admin'])
 

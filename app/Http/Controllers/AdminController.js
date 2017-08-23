@@ -160,6 +160,30 @@ response.redirect('/admin/ticket')
     yield response.sendView('admin.report.index',{
       tickets:Tiket.toJSON() } )
   }
+
+
+
+
+ * reportdetail(request, response) {
+    const ticket = yield Ticket.query()
+                    .where('ticket_id', request.param('ticket_id'))
+                    .with('user')
+                    .firstOrFail()
+    const comments = yield ticket.comments().with('user').fetch()
+    const category = yield Category.pair('id','name')
+    const Category_ticket = yield  ticket.category().fetch()
+    const User = yield ticket.updated().fetch()
+
+    //  console.log(User);
+    yield response.sendView('admin.report.detail', {
+        ticket: ticket.toJSON(),
+        comments: comments.toJSON(),
+        category: category,
+        category_ticket : Category_ticket,
+        users:User
+    })
+    }
+
 }
 
 module.exports = AdminController
