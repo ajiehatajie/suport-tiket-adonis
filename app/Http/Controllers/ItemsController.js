@@ -1,5 +1,5 @@
 'use strict'
-const Items = use('App/Model/item')
+const Items = use('App/Model/Item')
 const Validator = use('Validator')
 const Category = use ('App/Model/Category')
 const Antl = use('Antl')
