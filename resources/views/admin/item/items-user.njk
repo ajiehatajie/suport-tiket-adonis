@@ -1,0 +1,64 @@
+{% extends 'layouts.backend' %}
+
+{% block title %}
+    Department
+{% endblock %}
+
+{% block content %}
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Items</div>
+                    <div class="panel-body">
+                         {{ form.open({ url: '/items', method: 'GET', class: 'form-horizontal' }) }}
+                         
+                         <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                         {{ form.close() }}
+                        {% if old('error') %}
+                            <div class="alert alert-danger">
+                                {{ old('error') }}
+                            </div>
+                        {% endif %}
+
+
+                                            {% if items.length == 0 %}
+                                                <p>There are currently no tickets.</p>
+                                            {% else %}
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Code</th>
+                                                            <th>Name</th>
+                                                            <th>Romm</th>
+                                                            <th>Vendor</th>
+                                                            <th>Date Buy</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in items %}
+                                                        <tr>
+                                                            <td>{{ item.code }}</td>
+                                                            <td>{{ item.name }} </td>
+                                                            <td>{{ item.room }} </td>
+                                                            <td>{{ item.vendor}} </td>
+                                                            <td>{{ item.date_buy}} </td>
+                                                           
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

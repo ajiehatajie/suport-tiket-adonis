@@ -17,6 +17,19 @@
 
                         {{ form.open({ url: '/admin/items/update', method: 'POST', class: 'form-horizontal' }) }}
                             {{ csrfField }}
+                             <div class="form-group">
+                                
+                                <div class="col-md-6">
+                                    {{ form.hidden('id', items.id, { class: 'form-control',hidden:'true' }) }}
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                {{ form.label('Name', 'Code', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.text('code', items.code, { class: 'form-control' }) }}
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 {{ form.label('Name', 'Name', { class: 'col-md-4 control-label' }) }}
@@ -56,7 +69,7 @@
                             <div class="form-group">
                               {{ form.label('notes', 'Date Buy', { class: 'col-md-4 control-label' }) }}
                                 <div class="col-md-6">
-                                  {{ form.label('notes', time, { class: 'control-label' }) }}
+                                  {{ form.label('notes', items.date_buy, { class: 'control-label' }) }}
                                    <input type="text" class="form-control"  name="datebuy" id="datepicker">
 
                                 </div>
@@ -65,7 +78,7 @@
                              <div class="form-group">
                               {{ form.label('notes', 'Expired Date', { class: 'col-md-4 control-label' }) }}
                                 <div class="col-md-6">
-                                  {{ form.label('Expired', time, { class: 'control-label' }) }}
+                                  {{ form.label('Expired', items.expired, { class: 'control-label' }) }}
                                    <input type="text" class="form-control"  name="expired" id="datepicker2">
 
                                 </div>

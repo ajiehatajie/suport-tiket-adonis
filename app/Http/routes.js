@@ -28,7 +28,7 @@ Route.get('my_tickets', 'TicketsController.userTickets').middleware('auth')
 Route.get('ticket_teknisi', 'TicketsController.ticketteknisi').middleware('auth')
 Route.post('approveticket/:ticket_id','TicketsController.approve').middleware('auth')
 
-
+Route.get('items', 'ItemsController.itemsUser').middleware('auth')
 
 Route.post('comment', 'CommentsController.postComment')
 Route.get('test','CategoriesController.test')
@@ -62,6 +62,8 @@ Route.group('admin', function () {
     Route.post('items','ItemsController.store')
     Route.get('items/edit/:item_id','ItemsController.edit')
     Route.get('items/detail/:item_id','ItemsController.show')
+    Route.post('items/update','ItemsController.update')
+    
 
 
     Route.get('user','AdminController.index')

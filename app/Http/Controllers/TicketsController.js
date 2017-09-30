@@ -6,6 +6,8 @@ const Ticket = use('App/Model/Ticket')
 const RandomString = use('randomstring')
 const Category = use('App/Model/Category')
 const Items   = use ('App/Model/Item')
+const Database = use('Database')
+
 
 class TicketsController {
 
@@ -58,6 +60,9 @@ class TicketsController {
     * create(request, response) {
         const categories = yield Category.pair('id', 'name')
         const items = yield Items.pair('id','name')
+        //const items = yield Database.select('id','concat').from('items')
+        
+        console.log(items)
         yield response.sendView('tickets.create', {categories: categories,items: items})
     }
 

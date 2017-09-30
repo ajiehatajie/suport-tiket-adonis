@@ -40,6 +40,7 @@
                         <a href="#" class="dropdown-toggle waves-effect waves-light profile " 
                         data-toggle="dropdown" aria-expanded="true">
                            <img src="/assets/images/users/user.png" alt="user-img" class="img-circle">  <div class="user-status away"><i class="zmdi zmdi-dot-circle"></i></div>
+                        {{ currentUser.username }}
                         </a>
 
                         <ul class="dropdown-menu">
@@ -94,7 +95,7 @@
                                         </li>
 
                                         <li class="has-submenu">
-                                            <a href="/report"><i class="zmdi zmdi-collection-text"></i><span> Report </span> </a>
+                                            <a href="/items"><i class="zmdi zmdi-collection-text"></i><span> List Item </span> </a>
                                 </li>
 
                                 {% endif %}
