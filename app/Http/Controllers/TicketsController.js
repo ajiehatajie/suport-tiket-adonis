@@ -124,6 +124,7 @@ class TicketsController {
         const category = yield Category.pair('id','name')
         const Category_ticket = yield  ticket.category().fetch()
         const User = yield ticket.updated().fetch()
+        const items = yield ticket.item().fetch()
 
       //  console.log(User);
         yield response.sendView('tickets.show', {
@@ -131,7 +132,8 @@ class TicketsController {
             comments: comments.toJSON(),
             category: category,
             category_ticket : Category_ticket,
-            users:User
+            users:User,item:items
+
         })
     }
 

@@ -52,8 +52,18 @@ class ManajerController {
 
     console.log(`status dari manajer ${status} `);
 
-      if (user.departemen_id == 1) {
-          ticket.status_approve = 2
+      if (user.departemen_id == 1) {//m ruangan
+
+          if(status=='approve')
+          {
+            ticket.status_approve = 2
+          } else if(status =='reject') {
+            ticket.status ='Reject'
+          } else {
+            ticket.status = 'edit'
+          }
+
+          
       }
       else if (user.departemen_id == 2) {
           ticket.category_id = category
@@ -119,11 +129,21 @@ class ManajerController {
     const ticket = yield Ticket.query()
                         .where('ticket_id', request.param('ticket_id'))
                         .firstOrFail()
-   
-    ticket.status_approve = 3 
-    ticket.updated_by = user.id
-    yield ticket.save()
+    const status = request.input('status')
+                        
+    if(status=='approve')
+    {
+        ticket.status_approve = 3 
+        ticket.updated_by = user.id
+        yield ticket.save()
+  
+    } else if(status =='reject') {
+        ticket.status ='Reject'
+    } else {
+        ticket.status = 'edit'
+    }
 
+    
     const ticketOwner = yield ticket.user().fetch()
 
     yield request.with({ status: 'The ticket has been Approve.' }).flash()
@@ -136,10 +156,19 @@ class ManajerController {
     const ticket = yield Ticket.query()
                         .where('ticket_id', request.param('ticket_id'))
                         .firstOrFail()
+    const status = request.input('status')
+    if(status=='approve')
+    {
+        ticket.status_approve = 4
+        ticket.updated_by = user.id
+        yield ticket.save()
+  
+    } else if(status =='reject') {
+        ticket.status ='Reject'
+    } else {
+        ticket.status = 'edit'
+    }              
    
-    ticket.status_approve = 4 
-    ticket.updated_by = user.id
-    yield ticket.save()
 
     const ticketOwner = yield ticket.user().fetch()
 

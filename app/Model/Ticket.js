@@ -25,6 +25,10 @@ class Ticket extends Lucid {
         return this.belongsTo('App/Model/User')
     }
 
+    item() {
+        return this.belongsTo('App/Model/Item','id','id_item')
+    }
+
     updated() {
       return this.belongsTo('App/Model/User','id','updated_by' )
     }

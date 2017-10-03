@@ -26,8 +26,15 @@
                       </thead>
                       <tbody>
                         <tr>
+
                           <th>Subject </th>
                           <td>{{ ticket.message }}</td>
+                        </tr>
+                        <tr>
+                            
+                          <th>Item </th>
+                          <td>{{ item.code }} - {{ item.name }}</td>
+                             
                         </tr>
                           {% if category_ticket != null %}
                             {% if category_ticket.length != 0 %}
@@ -59,11 +66,13 @@
                               {% if currentUser.is_admin == 2  %}
 
                                  {% if currentUser.departemen_id == 1 %} <!-- manager ruangan -->
-                                    <b>{{users.username}} - {{ticket.status_approve}} </b>
+                                    <b>{{users.username}} </b>
                                         {% if ticket.status_approve == 1  %}
                                          {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                              {{ csrfField }}
-                                             {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                             {{ form.select('status', {  approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                             {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
+                                           
                                          {{ form.close() }}
 
                                          {% endif %}
@@ -73,7 +82,9 @@
                                             {% if ticket.category_id== 1 %}
                                                      {{ form.open({ url: '/manajer/approveipsrs/' + ticket.ticket_id, method: 'POST' }) }}
                                                             {{ csrfField }}
-                                                           {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                                      {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                           
+                                                           {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                                    {{ form.close() }}
 
                                             {% else %}
@@ -81,7 +92,9 @@
                                                         {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                                             {{ csrfField }}
                                                             <input type="hidden" name="category" value="{{ticket.category_id}}" />
-                                                            {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                                             {{ form.select('status', {  approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                           
+                                                             {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                                             {{ form.close() }}
                                                         {% endif %}
 
@@ -92,7 +105,9 @@
                                     {% if ticket.status_approve == 3 %}
                                          {{ form.open({ url: '/manajer/approvert/' + ticket.ticket_id, method: 'POST' }) }}
                                            {{ csrfField }}
-                                           {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                              {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                           
+                                           {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                            {{ form.close() }}
                                     {% endif %}
 
@@ -101,7 +116,9 @@
                                      {% if ticket.status_approve == 4 %}
                                           {{ form.open({ url: '/manajer/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                             {{ csrfField }}
-                                           {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                            {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                            
+                                             {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                            {{ form.close() }}
                                      {% endif %}
 
@@ -113,7 +130,8 @@
                                    {% if ticket.status_approve == 5 %}
                                     {{ form.open({ url: '/superadmin/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                     {{ csrfField }}
-                                    {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                     {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                    {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                     {{ form.close() }}
                                   {% endif %}
                               {% elif currentUser.is_admin == 4   %}
@@ -121,7 +139,9 @@
                                    {% if ticket.status_approve == 6 %}
                                    {{ form.open({ url: '/direktur/approveticket/' + ticket.ticket_id, method: 'POST' }) }}
                                     {{ csrfField }}
-                                    {{ form.button('Approve', null, { class: 'btn btn-danger' }) }}
+                                    {{ form.select('status', { approve: 'Approve', reject: 'Reject' }, null, 'status ticket', { class: 'form-control col-md-4' }) }}
+                                    
+                                    {{ form.button('Submit', null, { class: 'btn btn-danger' }) }}
                                    {{ form.close() }}
                                   {% endif %}
                               {% elif currentUser.is_admin == 0  %}
