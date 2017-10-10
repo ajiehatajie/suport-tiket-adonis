@@ -13,6 +13,7 @@ class DashboardController {
   * index (request,response) {
     const userLogin = request.currentUser
   ;
+  
     if(userLogin.is_admin == 0 ){ //buat user
       const tickets_mainten = yield Ticket.query()
                               .where('user_id', request.currentUser.id)
@@ -43,20 +44,42 @@ class DashboardController {
             })
 
     }else if (userLogin.is_admin == 2) {
-      const tickets_mainten = yield Ticket.query()
-                              .where('status_approve',userLogin.departemen_id)
-                              .where('status','open')
-                              .fetch()
-      const tickets_new = yield Ticket.query()
-                            .where('category_id',2)
-                            .where('status','Close')
-                            .fetch()
 
-    console.log(request.currentUser.id);
-     yield response.sendView('dashboard.manajer', {
-            mainten: tickets_mainten.toJSON(),new:tickets_new.toJSON()
+            if (userLogin.departemen_id == 4 ) {
+              const  tickets_mainten = yield Ticket.query()
+            .where('status_approve',userLogin.departemen_id)
+            .where('status','open')
+            .where('category_id',2)
+            .fetch()
 
-            })
+            const tickets_new = yield Ticket.query()
+            .where('status','Close')
+            .fetch()
+
+            console.log(tickets_mainten+ " umum");
+            yield response.sendView('dashboard.manajer', {
+                   mainten: tickets_mainten.toJSON(),new:tickets_new.toJSON()
+       
+                   })
+                   
+          } else {
+              const tickets_mainten = yield Ticket.query()
+              .where('status_approve',userLogin.departemen_id)
+              .where('status','open')
+              .fetch()
+              const tickets_new = yield Ticket.query()
+              .where('status','Close')
+              .fetch()
+
+              console.log(tickets_mainten+ " umum");
+              yield response.sendView('dashboard.manajer', {
+                     mainten: tickets_mainten.toJSON(),new:tickets_new.toJSON()
+         
+                     })
+          }
+     
+     
+    
 
     }
       else if (userLogin.is_admin == 3) { //buat wakil
