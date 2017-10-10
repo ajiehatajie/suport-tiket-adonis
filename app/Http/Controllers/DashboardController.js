@@ -28,7 +28,7 @@ class DashboardController {
 
     } else if (userLogin.is_admin == 1) { //buat admin
       const tickets_mainten = yield Ticket.query()
-                              .where('status_approve',userLogin.departemen_id)
+                              .whereIn('status_approve',[7,2,4])
                               .where('status','open')
                               .fetch()
       const tickets_new = yield Ticket.query()
@@ -61,14 +61,14 @@ class DashboardController {
     }
       else if (userLogin.is_admin == 3) { //buat wakil
         const tickets_mainten = yield Ticket.query()
-                                .where('status_approve',userLogin.departemen_id)
+                                .where('status_approve',5)
                                 .where('status','open')
                                 .fetch()
         const tickets_new = yield Ticket.query()
-                              .where('category_id',2)
+                            
                               .where('status','Close')
                               .fetch()
-
+      console.log(tickets_mainten);
       console.log(request.currentUser.id);
        yield response.sendView('dashboard.wakil', {
               mainten: tickets_mainten.toJSON(),new:tickets_new.toJSON()
@@ -76,11 +76,11 @@ class DashboardController {
               })
     } else if (userLogin.is_admin == 4) { //buat direktur
       const tickets_mainten = yield Ticket.query()
-                              .where('status_approve',userLogin.departemen_id)
+                              .where('status_approve',6)
                               .where('status','open')
                               .fetch()
       const tickets_new = yield Ticket.query()
-                            .where('category_id',2)
+                            
                             .where('status','Close')
                             .fetch()
 
