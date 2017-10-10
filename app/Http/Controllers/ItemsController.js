@@ -88,7 +88,14 @@ class ItemsController {
             datebuy:'required',
             expired:'required'
         })
-        
+        if (validation.fails()) {
+          yield request
+              .withAll()
+              .andWith({ errors: validation.messages() })
+              .flash()
+  
+          return response.redirect('back')
+      }
         const post = yield Items.findBy('id', request.input('id'))
         console.log(request.input('code'))
         post.code  = request.input('code')
@@ -103,14 +110,7 @@ class ItemsController {
         yield post.save();
         console.log(request.input('code'))
         // show error messages upon validation fail
-        if (validation.fails()) {
-            yield request
-                .withAll()
-                .andWith({ errors: validation.messages() })
-                .flash()
-    
-            return response.redirect('back')
-        }
+       
     
     
         yield request.with({ status: `A Items is update .` }).flash()
