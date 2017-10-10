@@ -22,7 +22,16 @@ class ManajerController {
         .where('status','open')
         .fetch()
 
-      } else {
+      }
+      else if (userLogin.departemen_id == 4 ) {
+        tickets = yield Ticket.query()
+       .where('status_approve',userLogin.departemen_id)
+       .where('status','open')
+       .where('category_id',2)
+       .fetch()
+
+     }
+      else {
          tickets = yield Ticket.query()
         .where('status_approve',userLogin.departemen_id)
         .where('status','open')
