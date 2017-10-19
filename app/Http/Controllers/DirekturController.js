@@ -49,7 +49,8 @@ class DirekturController {
         ticket.status = 'edit'
     }    
 
-   
+    ticket.updated_by = user.id
+    yield ticket.save()
 
     const ticketOwner = yield ticket.user().fetch()
 
