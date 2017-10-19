@@ -125,7 +125,7 @@
 
                                  {% endif %}
                               {% elif currentUser.is_admin == 3   %}
-                                <b> {{users.username}} {{users.is_admin}} | {{currentUser.is_admin}}  - {{ticket.status_approve}}</b>
+                                <b> {{users.username}}</b>
                                    <!-- status approve 6 -->
                                    {% if ticket.status_approve == 5 %}
                                     {{ form.open({ url: '/superadmin/approveticket/' + ticket.ticket_id, method: 'POST' }) }}

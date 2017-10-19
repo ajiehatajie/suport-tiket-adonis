@@ -132,7 +132,7 @@ class ItemsController {
        item = yield Items.all()
       
     } else {
-       item = yield Items.query().whereRaw('name like ?','%'+search+'%').fetch()
+       item = yield Items.query().whereRaw('room like ?','%'+search+'%').fetch()
       
     }
     const category = yield Category.all()

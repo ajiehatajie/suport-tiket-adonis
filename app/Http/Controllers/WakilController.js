@@ -41,6 +41,7 @@ class WakilController {
     const category = request.input('category')
 
     console.log(`status dari wakil ${status} `);
+
     if(status=='approve')
     {
         ticket.status_approve = 6
@@ -49,10 +50,12 @@ class WakilController {
   
     } else if(status =='reject') {
         ticket.status ='Reject'
+       
     } else {
         ticket.status = 'edit'
     }    
-    
+    ticket.updated_by = user.id
+    yield ticket.save()
     const ticketOwner = yield ticket.user().fetch()
 
     yield request.with({ status: 'The ticket has been Approve.' }).flash()
