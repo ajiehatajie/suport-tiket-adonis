@@ -60,10 +60,18 @@
                         <tr>
                             <th>Last Approve By</th>
                             <td>
+                            
                               {% if ticket.status == 'Open' %}
 
+                              {% if currentUser.is_admin == 0  %}
+                                         {% if ticket.status_approve == 1 %}
+                                                    <b> belum ada action</b>
+                                         {% else %}
+                                                 <b>{{users.username}} </b>
 
-                              {% if currentUser.is_admin == 2  %}
+                                         {% endif %}
+                                   
+                              {% elif currentUser.is_admin == 2  %}
 
                                  {% if currentUser.departemen_id == 1 %} <!-- manager ruangan -->
                                     <b>{{users.username}} </b>
